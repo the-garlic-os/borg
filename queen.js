@@ -1,15 +1,9 @@
 "use strict"
 
 const chalk   = require("chalk"),
-	  Discord = require("discord.js"),
 	  config  = require("./config"),
 	  Drone   = require("./drone"),
 	  event   = require("./assimilator")
-
-
-// Array of promises
-// Do all these things before logging in
-//const init = []
 
 class Queen extends Drone {
 	constructor(id, token) {
@@ -61,8 +55,6 @@ class Queen extends Drone {
 	/**
 	 * Parses a message whose content is presumed to be a command
 	 *   and performs the corresponding action.
-	 * 
-	 * Here be dragons.
 	 * 
 	 * @param {Message} messageObj - Discord message to be parsed
 	 * @return {Promise<string>} Resolve: name of command performed; Reject: error
@@ -198,69 +190,6 @@ class Queen extends Drone {
 			? `[Direct message]`
 			: `[${message.guild.name} - #${message.channel.name}]`
 	}
-
-
-	/**
-	 * Generates an object containing stats about
-	 *   all the channels in the given dictionary.
-	 * 
-	 * @param {Object} channelDict - Dictionary of channels
-	 * @return {Promise<Object|Error>} Resolve: Object intended to be console.table'd; Reject: "empty object
-	 * 
-	 * @example
-	 *     channelTable(config.SPEAKING_CHANNELS)
-	 *         .then(console.table)
-	 */
-	/*async channelTable(channelDict) {
-		if (config.DISABLE_LOGS)
-			return {}
-		
-		if (isEmpty(channelDict))
-			throw "No channels are whitelisted."
-
-		const stats = {}
-		for (const i in channelDict) {
-			const channelId = channelDict[i]
-			const channel = super.client().channels.get(channelId)
-			const stat = {}
-			stat["Server"] = channel.guild.name
-			stat["Name"] = "#" + channel.name
-			stats[channelId] = stat
-		}
-		return stats
-	}*/
-
-
-	/**
-	 * Generates an object containing stats about
-	 *   all the nicknames Schism has.
-	 * 
-	 * @param {Object} nicknameDict - Dictionary of nicknames
-	 * @return {Promise<Object|Error>} Resolve: Object intended to be console.table'd; Reject: "empty object"
-	 * 
-	 * @example
-	 *     nicknameTable(config.NICKNAMES)
-	 *         .then(console.table)
-	 */
-	/*async nicknameTable(nicknameDict) {
-		if (config.DISABLE_LOGS)
-			return {}
-		
-		if (isEmpty(nicknameDict))
-			throw "No nicknames defined."
-
-		const stats = {}
-		for (const serverName in nicknameDict) {
-			const [ serverId, nickname ] = nicknameDict[serverName]
-			const server = super.client().guilds.get(serverId)
-			const stat = {}
-			stat["Server"] = server.name
-			stat["Intended"] = nickname
-			stat["De facto"] = server.me.nickname
-			stats[serverId] = stat
-		}
-		return stats
-	}*/
 }
 
 module.exports = Queen
