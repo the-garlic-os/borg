@@ -2,7 +2,7 @@
 
 const chalk   = require("chalk"),
       Discord = require("discord.js"),
-	  event   = require("./assimilator")
+      event   = require("./assimilator")
 
 
 
