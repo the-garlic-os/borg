@@ -2,10 +2,7 @@
 
 const config = require("./config"),
       Queen  = require("./queen"),
-      Drone  = require("./drone"),
-	  events = require("events")
-
-const eventEmitter = new events.EventEmitter()
+      Drone  = require("./drone")
 
 
 // Log errors when in production; crash when not in production
@@ -28,9 +25,9 @@ let counter = 0
 const bots = []
 
 bots.push(
-	new Queen(counter, config.TOKENS[counter++], eventEmitter),
-	new Drone(counter, config.TOKENS[counter++], eventEmitter),
-	new Drone(counter, config.TOKENS[counter++], eventEmitter)
+	new Queen(counter, config.TOKENS[counter++]),
+	new Drone(counter, config.TOKENS[counter++]),
+	new Drone(counter, config.TOKENS[counter++])
 )
 
 for (const bot of bots) {
