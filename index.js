@@ -39,16 +39,29 @@ for (const bot of bots) {
 
 
 /**
- * DM's garlicOS and logs error
+ * DMs the admins and logs an error
+ * 
+ * @param {string} err - an error
  */
 function logError(err) {
 	console.error(err)
+
+	// Only try to DM the admins if there is a bot to send from
+	if (!bots[0]) return
+
 	const sendThis = (err.message)
 		? `ERROR! ${err.message}`
 		: `ERROR! ${err}`
 
-	// Yes, I hardcoded my own user ID. I'm sorry.
-	client.fetchUser("206235904644349953")
-		.then(me => me.send(sendThis))
-		.catch(console.error)
+	// Bot's client variable
+	// If it doesn't exist, get its superclass's client
+	const client = bots[0].client || bots[0].super.client()
+
+	for (const key in config.ADMINS) {
+		const userId = config.ADMINS[key]
+		client.fetchUser(userId)
+			.then(user => user.send(sendThis))
+			.catch(console.error)
+	}
+
 }
